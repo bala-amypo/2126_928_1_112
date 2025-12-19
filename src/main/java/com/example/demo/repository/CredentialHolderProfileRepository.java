@@ -1,11 +1,11 @@
-// package com.example.demo.repository;
+package com.example.demo.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import com.example.demo.entity.CredentialHolderProfile;
+import com.example.demo.entity.CredentialHolderProfile;
 
-// public interface CredentialHolderProfileRepository 
-//         extends JpaRepository<CredentialHolderProfile, Long> {
+public interface CredentialHolderProfileRepository 
+        extends JpaRepository<CredentialHolderProfile, Long> {
 
-//     CredentialHolderProfile findByHolderId(String holderId);
-// }
+    CredentialHolderProfile findByHolderId(String holderId);
+}
