@@ -45,14 +45,12 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- OPTIONAL: MySQL (use only if needed) -->
-        <!--
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        -->
+
 
         <!-- Validation (optional but safe) -->
         <dependency>
