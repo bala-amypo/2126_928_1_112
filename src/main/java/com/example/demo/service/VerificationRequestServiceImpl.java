@@ -18,16 +18,19 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
 
     @Override
     public String processRequest(Long requestId) {
+        if (requestId == null) return "Invalid request";
+
         String requestIdStr = String.valueOf(requestId);
 
-        boolean credentialOk = credentialRecordService.credentialExists(requestId);
+        boolean credentialExists = credentialRecordService.credentialExists(requestId);
         boolean rulesPassed = verificationRuleService.applyRules(requestId);
-        auditTrailService.logAction("Processed request " + requestIdStr);
 
-        if (credentialOk && rulesPassed) {
-            return "Request " + requestIdStr + " verified successfully!";
+        auditTrailService.logAction("Processed request ID: " + requestIdStr);
+
+        if (credentialExists && rulesPassed) {
+            return "Verification successful for request " + requestIdStr;
         } else {
-            return "Request " + requestIdStr + " verification failed!";
+            return "Verification failed for request " + requestIdStr;
         }
     }
 }

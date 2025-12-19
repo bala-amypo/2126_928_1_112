@@ -1,24 +1,20 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.AuditTrailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.entity.AuditTrailRecord;
-import com.example.demo.service.AuditTrailService;
-
 @RestController
+@RequestMapping("/audit")
 public class AuditTrailController {
 
+    @Autowired
     private AuditTrailService service;
 
-    public AuditTrailController(AuditTrailService service) {
-        this.service = service;
-    }
-
-    @GetMapping("/api/audit")
-    public List<AuditTrailRecord> getAll() {
+    @GetMapping("/logs")
+    public List<String> getAllLogs() {
         return service.getAllLogs();
     }
 }

@@ -8,7 +8,8 @@ public class VerificationRuleServiceImpl implements VerificationRuleService {
 
     @Override
     public boolean applyRules(Long requestId) {
-        // Example rule: approve if ID is even
-        return requestId != null && requestId % 2 == 0;
+        // Example: simple rule - request passes if requestId is even
+        if (requestId == null) return false;
+        return requestId % 2 == 0;
     }
 }

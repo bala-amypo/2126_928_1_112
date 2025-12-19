@@ -1,36 +1,31 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.CredentialRecord;
 import com.example.demo.service.CredentialRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/credentials")
 public class CredentialRecordController {
 
-    private final CredentialRecordService service;
+    @Autowired
+    private CredentialRecordService service;
 
-    public CredentialRecordController(CredentialRecordService service) {
-        this.service = service;
-    }
-
-    @PostMapping("/api/credentials")
-    public CredentialRecord create(@RequestBody CredentialRecord record) {
+    @PostMapping
+    public CredentialRecord createCredential(@RequestBody CredentialRecord record) {
         return service.createCredential(record);
     }
 
-    @GetMapping("/api/credentials")
-    public List<CredentialRecord> getAll() {
+    @GetMapping
+    public List<CredentialRecord> getAllCredentials() {
         return service.getAllCredentials();
     }
 
-    @GetMapping("/api/credentials/code/{code}")
-    public ResponseEntity<CredentialRecord> getByCode(@PathVariable String code) {
-        return service.getCredentialByCode(code)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/{code}")
+    public CredentialRecord getCredentialByCode(@PathVariable String code) {
+        return service.getCredentialByCode(code);
     }
 }
