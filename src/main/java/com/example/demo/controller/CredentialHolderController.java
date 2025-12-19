@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.CredentialHolderProfile;
 import com.example.demo.service.CredentialHolderProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @RestController
 public class CredentialHolderController {
