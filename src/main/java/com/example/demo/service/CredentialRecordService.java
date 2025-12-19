@@ -1,37 +1,37 @@
-// package com.example.demo.service;
+package com.example.demo.service;
 
-// import java.util.List;
+import java.util.List;
 
-// import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
-// import com.example.demo.entity.CredentialRecord;
-// import com.example.demo.repository.CredentialRecordRepository;
+import com.example.demo.entity.CredentialRecord;
+import com.example.demo.repository.CredentialRecordRepository;
 
-// @Service
-// public class CredentialRecordService {
+@Service
+public class CredentialRecordService {
 
-//     private CredentialRecordRepository repo;
+    private CredentialRecordRepository repo;
 
-//     public CredentialRecordService(CredentialRecordRepository repo) {
-//         this.repo = repo;
-//     }
+    public CredentialRecordService(CredentialRecordRepository repo) {
+        this.repo = repo;
+    }
 
-//     public CredentialRecord createCredential(CredentialRecord record) {
-//         if (record.getStatus() == null) {
-//             record.setStatus("VALID");
-//         }
-//         return repo.save(record);
-//     }
+    public CredentialRecord createCredential(CredentialRecord record) {
+        if (record.getStatus() == null) {
+            record.setStatus("VALID");
+        }
+        return repo.save(record);
+    }
 
-//     public List<CredentialRecord> getAllCredentials() {
-//         return repo.findAll();
-//     }
+    public List<CredentialRecord> getAllCredentials() {
+        return repo.findAll();
+    }
 
-//     public CredentialRecord getCredentialByCode(String code) {
-//         return repo.findByCredentialCode(code);
-//     }
+    public CredentialRecord getCredentialByCode(String code) {
+        return repo.findByCredentialCode(code);
+    }
 
-//     public List<CredentialRecord> getByHolder(Long holderId) {
-//         return repo.findByHolderId(holderId);
-//     }
-// }
+    public List<CredentialRecord> getByHolder(Long holderId) {
+        return repo.findByHolderId(holderId);
+    }
+}
