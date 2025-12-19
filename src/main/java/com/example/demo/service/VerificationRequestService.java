@@ -1,5 +1,3 @@
-package com.example.demo.service;
-
 import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
@@ -12,10 +10,10 @@ import com.example.demo.repository.VerificationRequestRepository;
 @Service
 public class VerificationRequestService {
 
-    private VerificationRequestRepository repo;
-    private CredentialRecordService credService;
-    private VerificationRuleService ruleService;
-    private AuditTrailService auditService;
+    private final VerificationRequestRepository repo;
+    private final CredentialRecordService credService;
+    private final VerificationRuleService ruleService;
+    private final AuditTrailService auditService;
 
     public VerificationRequestService(
             VerificationRequestRepository repo,
@@ -34,25 +32,30 @@ public class VerificationRequestService {
     }
 
     public VerificationRequest processVerification(Long id) {
-        VerificationRequest req = repo.findById(id).get();
-        CredentialRecord cr = credService.getCredentialByCode(
-                credService.getCredentialByCode(
-                        credService.getCredentialByCode("").getCredentialCode()
-                ).getCredentialCode()
-        );
 
+        VerificationRequest req = repo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Verification request not found"));
+
+        // 🔹 Fetch credential ONCE and unwrap Optional
+        CredentialRecord cr = credService
+                .getCredentialByCode(req.getCredentialId())
+                .orElseThrow(() -> new IllegalStateException("Credential not found"));
+
+        // 🔹 Simple verification logic
         if (cr.getExpiryDate().isBefore(LocalDate.now())) {
             req.setStatus("FAILED");
         } else {
             req.setStatus("SUCCESS");
         }
 
+        // 🔹 Audit log
         AuditTrailRecord log = new AuditTrailRecord();
         log.setCredentialId(req.getCredentialId());
         log.setEventType("VERIFICATION");
         log.setDetails(req.getStatus());
 
         auditService.logEvent(log);
+
         return repo.save(req);
     }
 }
