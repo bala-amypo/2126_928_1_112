@@ -1,18 +1,12 @@
 package com.example.demo.repository;
-import java.util.Optional;
-import java.util.List;
-import java.time.LocalDate;
-
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.entity.CredentialRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface CredentialRecordRepository 
+public interface CredentialRecordRepository
         extends JpaRepository<CredentialRecord, Long> {
 
-    List<CredentialRecord> findByExpiryDateBefore(LocalDate date);
-
-    Optional<CredentialRecord> findByCredentialCode(String credentialCode);
-
+    // ✅ This now matches the entity field exactly
     List<CredentialRecord> findByHolderId(Long holderId);
 }

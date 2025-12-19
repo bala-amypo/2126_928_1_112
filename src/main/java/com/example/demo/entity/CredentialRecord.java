@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class CredentialRecord {
@@ -11,16 +14,32 @@ public class CredentialRecord {
 
     private String code;
 
-    // ✅ ADD THIS FIELD
+    // ✅ REQUIRED for findByHolderId(...)
     private Long holderId;
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // ---------- Getters and Setters ----------
 
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getHolderId() { return holderId; }
-    public void setHolderId(Long holderId) { this.holderId = holderId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Long getHolderId() {
+        return holderId;
+    }
+
+    public void setHolderId(Long holderId) {
+        this.holderId = holderId;
+    }
 }
