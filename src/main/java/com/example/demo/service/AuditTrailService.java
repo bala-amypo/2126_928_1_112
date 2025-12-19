@@ -15,8 +15,9 @@ public class AuditTrailService {
         this.repository = repository;
     }
 
-    public AuditTrailRecord save(AuditTrailRecord record) {
-        return repository.save(record);
+    // ✅ ADD THIS METHOD
+    public void logEvent(AuditTrailRecord record) {
+        repository.save(record);
     }
 
     public List<AuditTrailRecord> getAllLogs() {
