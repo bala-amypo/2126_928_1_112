@@ -13,11 +13,6 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
     private final List<CredentialRecord> credentials = new ArrayList<>();
 
     @Override
-    public boolean credentialExists(Long credentialId) {
-        return credentials.stream().anyMatch(c -> c.getId().equals(credentialId));
-    }
-
-    @Override
     public CredentialRecord createCredential(CredentialRecord record) {
         credentials.add(record);
         return record;
@@ -30,9 +25,11 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
 
     @Override
     public CredentialRecord getCredentialByCode(String code) {
-        return credentials.stream()
-                .filter(c -> c.getCode().equals(code))
-                .findFirst()
-                .orElse(null);
+        return credentials.stream().filter(c -> c.getCode().equals(code)).findFirst().orElse(null);
+    }
+
+    @Override
+    public boolean credentialExists(Long credentialId) {
+        return credentials.stream().anyMatch(c -> c.getId().equals(credentialId));
     }
 }

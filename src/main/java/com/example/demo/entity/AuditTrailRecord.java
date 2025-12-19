@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class AuditTrailRecord {
@@ -9,20 +12,11 @@ public class AuditTrailRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long credentialId;
-    private String eventType;
-    private String details;
+    private String action;
 
-    public AuditTrailRecord() {}
-
+    // Getters and setters
     public Long getId() { return id; }
-
-    public Long getCredentialId() { return credentialId; }
-    public void setCredentialId(Long credentialId) { this.credentialId = credentialId; }
-
-    public String getEventType() { return eventType; }
-    public void setEventType(String eventType) { this.eventType = eventType; }
-
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
+    public void setId(Long id) { this.id = id; }
+    public String getAction() { return action; }
+    public void setAction(String action) { this.action = action; }
 }
