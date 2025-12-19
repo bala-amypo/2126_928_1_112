@@ -2,11 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entity.CredentialRecord;
 import com.example.demo.service.CredentialRecordService;
@@ -14,7 +11,7 @@ import com.example.demo.service.CredentialRecordService;
 @RestController
 public class CredentialRecordController {
 
-    private CredentialRecordService service;
+    private final CredentialRecordService service;
 
     public CredentialRecordController(CredentialRecordService service) {
         this.service = service;
@@ -31,7 +28,9 @@ public class CredentialRecordController {
     }
 
     @GetMapping("/api/credentials/code/{code}")
-    public CredentialRecord getByCode(@PathVariable String code) {
-        return service.getCredentialByCode(code);
+    public ResponseEntity<CredentialRecord> getByCode(@PathVariable String code) {
+        return service.getCredentialByCode(code)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
