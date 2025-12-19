@@ -1,26 +1,14 @@
 package com.example.demo.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.example.demo.entity.AuditTrailRecord;
 import com.example.demo.repository.AuditTrailRecordRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuditTrailService {
 
-    private AuditTrailRecordRepository repo;
+    private final AuditTrailRecordRepository repository;
 
-    public AuditTrailService(AuditTrailRecordRepository repo) {
-        this.repo = repo;
-    }
-
-    public AuditTrailRecord logEvent(AuditTrailRecord record) {
-        return repo.save(record);
-    }
-
-    public List<AuditTrailRecord> getAllLogs() {
-        return repo.findAll();
+    public AuditTrailService(AuditTrailRecordRepository repository) {
+        this.repository = repository;
     }
 }
