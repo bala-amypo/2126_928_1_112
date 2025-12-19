@@ -18,8 +18,4 @@ public class UserService {
         user.setPassword(user.getPassword() + "_ENC");
         return repo.save(user);
     }
-
-    public User findByEmail(String email) {
-        return repo.findByEmail(email);
-    }
 }
