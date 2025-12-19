@@ -13,7 +13,9 @@ import com.example.demo.service.CredentialHolderProfileService;
 @RestController
 public class CredentialHolderController {
 
+    @Autowired
     private CredentialHolderProfileService service;
+
 
     public CredentialHolderController(CredentialHolderProfileService service) {
         this.service = service;
