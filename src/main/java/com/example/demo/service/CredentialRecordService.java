@@ -27,9 +27,10 @@ public class CredentialRecordService {
         return repo.findAll();
     }
 
-    public CredentialRecord getCredentialByCode(String code) {
-        return repo.findByCredentialCode(code);
-    }
+public Optional<CredentialRecord> getCredentialByCode(String code) {
+    return repo.findByCredentialCode(code);
+}
+
 
     public List<CredentialRecord> getByHolder(Long holderId) {
         return repo.findByHolderId(holderId);
