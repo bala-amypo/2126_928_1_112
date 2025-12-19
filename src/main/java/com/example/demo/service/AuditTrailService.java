@@ -1,11 +1,10 @@
 package com.example.demo.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.AuditTrailRecord;
 import com.example.demo.repository.AuditTrailRecordRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AuditTrailService {
@@ -16,13 +15,11 @@ public class AuditTrailService {
         this.repository = repository;
     }
 
-    // USED BY AuditTrailController
-    public List<AuditTrailRecord> getAllLogs() {
-        return repository.findAll();
+    public AuditTrailRecord save(AuditTrailRecord record) {
+        return repository.save(record);
     }
 
-    // USED BY VerificationRequestService
-    public void logEvent(AuditTrailRecord record) {
-        repository.save(record);
+    public List<AuditTrailRecord> getAllLogs() {
+        return repository.findAll();
     }
 }
