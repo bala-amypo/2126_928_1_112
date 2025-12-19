@@ -14,6 +14,7 @@ public class AuditTrailRecord {
     private String eventType;
     private String details;
 
+    // ✅ REQUIRED
     public AuditTrailRecord() {}
 
     public Long getId() {
