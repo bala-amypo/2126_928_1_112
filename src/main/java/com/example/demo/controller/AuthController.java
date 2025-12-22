@@ -1,32 +1,30 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.User;
-import com.example.demo.service.AuthService;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthService authService;
+    private final UserService userService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public AuthController(UserService userService) {
+        this.userService = userService;
     }
 
-    // REGISTER USER
-    // POST /auth/register
     @PostMapping("/register")
     public User register(@RequestBody User user) {
-        return authService.register(user);
+        return userService.register(user);
     }
 
-    // LOGIN USER
-    // POST /auth/login
     @PostMapping("/login")
     public User login(
             @RequestParam String email,
             @RequestParam String password) {
-        return authService.login(email, password);
+
+        return userService.login(email, password);
     }
 }

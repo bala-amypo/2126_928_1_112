@@ -1,16 +1,15 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 
 @Service
-public class UserServiceImpl implements AuthService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -19,12 +18,14 @@ public class UserServiceImpl implements AuthService {
     @Override
     public User register(User user) {
 
-        userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("Email already exists");
-        });
+        }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("VIEWER");
+        // NO BCrypt – store password as-is (not recommended for production)
+        if (user.getRole() == null) {
+            user.setRole("VIEWER");
+        }
 
         return userRepository.save(user);
     }
@@ -35,7 +36,7 @@ public class UserServiceImpl implements AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid email"));
 
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid password");
         }
 
