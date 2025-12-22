@@ -6,8 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-@Table(name="/credentials")
-
 public class CredentialRecord {
 
     @Id
@@ -16,10 +14,9 @@ public class CredentialRecord {
 
     private String code;
 
-    // ✅ REQUIRED for findByHolderId(...)
     private Long holderId;
 
-    // ---------- Getters and Setters ----------
+    // -------- Getters & Setters --------
 
     public Long getId() {
         return id;
