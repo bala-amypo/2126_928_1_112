@@ -1,24 +1,33 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.AuditTrailService;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.demo.entity.AuditTrailRecord;
+import com.example.demo.repository.AuditTrailRecordRepository;
+import com.example.demo.service.AuditTrailService;
 
 @Service
 public class AuditTrailServiceImpl implements AuditTrailService {
 
-    private final List<String> logs = new ArrayList<>();
+    private final AuditTrailRecordRepository auditRepo;
 
-    @Override
-    public void logAction(String action) {
-        logs.add(action);
-        System.out.println("Audit Log: " + action);
+    public AuditTrailServiceImpl(AuditTrailRecordRepository auditRepo) {
+        this.auditRepo = auditRepo;
     }
 
     @Override
-    public List<String> getAllLogs() {
-        return new ArrayList<>(logs);
+    public AuditTrailRecord logEvent(AuditTrailRecord record) {
+        if (record.getLoggedAt() == null) {
+            record.setLoggedAt(LocalDateTime.now());
+        }
+        return auditRepo.save(record);
+    }
+
+    @Override
+    public List<AuditTrailRecord> getLogsByCredential(Long credentialId) {
+        return auditRepo.findByCredentialId(credentialId);
     }
 }

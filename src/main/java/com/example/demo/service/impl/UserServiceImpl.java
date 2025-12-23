@@ -1,8 +1,11 @@
 package com.example.demo.service.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.User;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
@@ -10,36 +13,26 @@ import com.example.demo.service.UserService;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User register(User user) {
-
+    public User registerUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new BadRequestException("Email already exists");
         }
-
-        // NO BCrypt – store password as-is (not recommended for production)
-        if (user.getRole() == null) {
-            user.setRole("VIEWER");
-        }
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public User login(String email, String password) {
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid email"));
-
-        if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid password");
-        }
-
-        return user;
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

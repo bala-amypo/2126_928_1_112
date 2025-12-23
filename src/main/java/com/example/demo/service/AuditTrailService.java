@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
 import java.util.List;
+import com.example.demo.entity.AuditTrailRecord;
 
 public interface AuditTrailService {
-    void logAction(String action);
-    List<String> getAllLogs();
+
+    AuditTrailRecord logEvent(AuditTrailRecord record);
+
+    List<AuditTrailRecord> getLogsByCredential(Long credentialId);
 }

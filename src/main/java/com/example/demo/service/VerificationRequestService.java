@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
+import java.util.List;
+import com.example.demo.entity.VerificationRequest;
+
 public interface VerificationRequestService {
 
-    /**
-     * Process a verification request
-     * @param requestId ID of the verification request
-     * @return result message
-     */
-    String processRequest(Long requestId);
+    VerificationRequest initiateVerification(VerificationRequest request);
+
+    VerificationRequest processVerification(Long requestId);
+
+    List<VerificationRequest> getRequestsByCredential(Long credentialId);
 }

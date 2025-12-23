@@ -1,8 +1,13 @@
 package com.example.demo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.dto.JwtResponse;
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
+import com.example.demo.security.JwtUtil;
 import com.example.demo.service.UserService;
 
 @RestController
@@ -10,21 +15,36 @@ import com.example.demo.service.UserService;
 public class AuthController {
 
     private final UserService userService;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, JwtUtil jwtUtil) {
         this.userService = userService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
+    public ResponseEntity<JwtResponse> register(@RequestBody RegisterRequest request) {
+        User user = new User();
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(request.getRole());
+
+        User saved = userService.registerUser(user);
+        String token = jwtUtil.generateToken(
+                saved.getId(), saved.getEmail(), saved.getRole());
+
+        return ResponseEntity.ok(
+                new JwtResponse(token, saved.getEmail(), saved.getRole()));
     }
 
     @PostMapping("/login")
-    public User login(
-            @RequestParam String email,
-            @RequestParam String password) {
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
+        User user = userService.findByEmail(request.getEmail());
+        String token = jwtUtil.generateToken(
+                user.getId(), user.getEmail(), user.getRole());
 
-        return userService.login(email, password);
+        return ResponseEntity.ok(
+                new JwtResponse(token, user.getEmail(), user.getRole()));
     }
 }

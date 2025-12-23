@@ -1,15 +1,22 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.VerificationRuleService;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.VerificationRule;
+import com.example.demo.repository.VerificationRuleRepository;
+import com.example.demo.service.VerificationRuleService;
 
 @Service
 public class VerificationRuleServiceImpl implements VerificationRuleService {
 
+    private final VerificationRuleRepository ruleRepo;
+
+    public VerificationRuleServiceImpl(VerificationRuleRepository ruleRepo) {
+        this.ruleRepo = ruleRepo;
+    }
+
     @Override
-    public boolean applyRules(Long requestId) {
-        // Example: simple rule - request passes if requestId is even
-        if (requestId == null) return false;
-        return requestId % 2 == 0;
+    public VerificationRule createRule(VerificationRule rule) {
+        return ruleRepo.save(rule);
     }
 }

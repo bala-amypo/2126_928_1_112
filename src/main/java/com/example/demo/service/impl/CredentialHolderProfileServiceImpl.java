@@ -1,26 +1,38 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
+
+import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.CredentialHolderProfile;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.CredentialHolderProfileRepository;
-import org.springframework.stereotype.Service;
-import java.util.List;
+import com.example.demo.service.CredentialHolderProfileService;
 
 @Service
-public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
+public class CredentialHolderProfileServiceImpl
+        implements CredentialHolderProfileService {
 
-    private final CredentialHolderProfileRepository repository;
+    private final CredentialHolderProfileRepository holderRepo;
 
-    public CredentialHolderProfileServiceImpl(CredentialHolderProfileRepository repository) {
-        this.repository = repository;
+    public CredentialHolderProfileServiceImpl(
+            CredentialHolderProfileRepository holderRepo) {
+        this.holderRepo = holderRepo;
     }
 
     @Override
     public CredentialHolderProfile createHolder(CredentialHolderProfile profile) {
-        return repository.save(profile);
+        return holderRepo.save(profile);
     }
 
     @Override
-    public List<CredentialHolderProfile> getAllHolders() {
-        return repository.findAll();
+    public CredentialHolderProfile getHolderById(Long id) {
+        return holderRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Holder not found"));
+    }
+
+    @Override
+    public CredentialHolderProfile updateStatus(Long id, boolean active) {
+        CredentialHolderProfile profile = getHolderById(id);
+        profile.setActive(active);
+        return holderRepo.save(profile);
     }
 }
