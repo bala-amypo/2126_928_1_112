@@ -17,13 +17,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
+            // Disable CSRF (for REST APIs)
             .csrf(csrf -> csrf.disable())
+
+            // Allow all requests (API-only application)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().permitAll()
             )
+
+            // Disable default Spring Security login page
             .formLogin(form -> form.disable())
+
+            // Disable HTTP Basic authentication
             .httpBasic(basic -> basic.disable());
 
         return http.build();
