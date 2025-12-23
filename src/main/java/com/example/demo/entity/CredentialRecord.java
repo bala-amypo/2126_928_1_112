@@ -1,9 +1,7 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.time.LocalDate;
+import jakarta.persistence.*;
 
 @Entity
 public class CredentialRecord {
@@ -12,33 +10,39 @@ public class CredentialRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
-
     private Long holderId;
+    private String credentialCode;
+    private String title;
+    private String issuer;
+    private String credentialType;
+    private String status;
+    private LocalDate expiryDate;
+    private String metadataJson;
 
-    // -------- Getters & Setters --------
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getHolderId() { return holderId; }
+    public void setHolderId(Long holderId) { this.holderId = holderId; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getCredentialCode() { return credentialCode; }
+    public void setCredentialCode(String credentialCode) { this.credentialCode = credentialCode; }
 
-    public String getCode() {
-        return code;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+    public String getIssuer() { return issuer; }
+    public void setIssuer(String issuer) { this.issuer = issuer; }
 
-    public Long getHolderId() {
-        return holderId;
-    }
+    public String getCredentialType() { return credentialType; }
+    public void setCredentialType(String credentialType) { this.credentialType = credentialType; }
 
-    public void setHolderId(Long holderId) {
-        this.holderId = holderId;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public LocalDate getExpiryDate() { return expiryDate; }
+    public void setExpiryDate(LocalDate expiryDate) { this.expiryDate = expiryDate; }
+
+    public String getMetadataJson() { return metadataJson; }
+    public void setMetadataJson(String metadataJson) { this.metadataJson = metadataJson; }
 }
