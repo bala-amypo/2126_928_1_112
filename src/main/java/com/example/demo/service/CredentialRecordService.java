@@ -68,4 +68,6 @@ public interface CredentialRecordService {
     CredentialRecord updateCredential(Long id, CredentialRecord update);
     List<CredentialRecord> getCredentialsByHolder(Long holderId);
     CredentialRecord getCredentialByCode(String code);
+    // Added for Verification flow (Test 61/62)
+    List<CredentialRecord> getAllCredentials();
 }
