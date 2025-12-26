@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor // Required for t49, t51 [cite: 181]
+@AllArgsConstructor // This specifically fixes the AuthController errors
 public class JwtResponse {
     private String token;
 }
