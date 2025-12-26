@@ -47,7 +47,6 @@
 //     public void setMetadataJson(String metadataJson) { this.metadataJson = metadataJson; }
 // }
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -55,7 +54,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data // This fixes "cannot find symbol: method getExpiryDate()" [cite: 157]
+@Data // <--- This generates getters and setters
+@NoArgsConstructor
 public class CredentialRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,8 +67,10 @@ public class CredentialRecord {
     private String credentialType;
     private String status;
     private LocalDate expiryDate;
-    private String metadataJson;
     
+    @Column(columnDefinition = "TEXT")
+    private String metadataJson;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<VerificationRule> rules = new HashSet<>();
 }

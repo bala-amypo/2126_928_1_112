@@ -32,15 +32,19 @@
 
 package com.example.demo.entity;
 import jakarta.persistence.*;
-import lombok.Data; // <--- This import is required!
+import lombok.*;
 
 @Entity
-@Data // <--- This tag creates the missing code!
+@Table(name = "users")
+@Data // <--- This generates getters and setters
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
+    @Column(unique = true)
     private String email;
     private String password;
     private String role;

@@ -22,7 +22,7 @@
 package com.example.demo.dto;
 import lombok.Data;
 
-@Data // Generates getFullName(), getEmail(), etc. [cite: 182]
+@Data // <--- Fixes getEmail, getPassword errors in AuthController
 public class RegisterRequest {
     private String fullName;
     private String email;

@@ -17,11 +17,11 @@
 //     public String getRole() { return role; }
 // }
 package com.example.demo.dto;
-import lombok.Data;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 @Data
-@AllArgsConstructor // <--- Adds the ability to pass the token in ()
+@NoArgsConstructor
+@AllArgsConstructor // <--- Fixes "constructor cannot be applied" error
 public class JwtResponse {
     private String token;
 }

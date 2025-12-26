@@ -26,18 +26,16 @@
 //     public void setActive(Boolean active) { this.active = active; }
 // }
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Data // <--- This generates setActive
 @NoArgsConstructor
 public class CredentialHolderProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String email;
     private String organization;
     private Boolean active;

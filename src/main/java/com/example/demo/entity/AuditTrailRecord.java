@@ -23,17 +23,17 @@
 //     public void setLoggedAt(LocalDateTime loggedAt) { this.loggedAt = loggedAt; }
 // }
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Data // <--- This generates getLoggedAt and setLoggedAt
+@NoArgsConstructor
 public class AuditTrailRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long credentialId;
-    private LocalDateTime loggedAt; // Ensure this exact name
+    private LocalDateTime loggedAt;
 }
