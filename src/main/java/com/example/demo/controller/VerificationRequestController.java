@@ -1,30 +1,51 @@
+// package com.example.demo.controller;
+
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.web.bind.annotation.*;
+
+// import com.example.demo.entity.VerificationRequest;
+// import com.example.demo.service.VerificationRequestService;
+
+// @RestController
+// @RequestMapping("/verification")
+// public class VerificationRequestController {
+
+//     private final VerificationRequestService service;
+
+//     public VerificationRequestController(VerificationRequestService service) {
+//         this.service = service;
+//     }
+
+//     @PostMapping
+//     public ResponseEntity<VerificationRequest> initiate(
+//             @RequestBody VerificationRequest request) {
+//         return ResponseEntity.ok(service.initiateVerification(request));
+//     }
+
+//     @PostMapping("/{id}/process")
+//     public ResponseEntity<VerificationRequest> process(
+//             @PathVariable Long id) {
+//         return ResponseEntity.ok(service.processVerification(id));
+//     }
+// }
 package com.example.demo.controller;
 
+import com.example.demo.entity.VerificationRequest;
+import com.example.demo.service.impl.VerificationRequestServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.entity.VerificationRequest;
-import com.example.demo.service.VerificationRequestService;
-
 @RestController
-@RequestMapping("/verification")
+@RequestMapping("/api/verification")
 public class VerificationRequestController {
+    private final VerificationRequestServiceImpl service;
 
-    private final VerificationRequestService service;
-
-    public VerificationRequestController(VerificationRequestService service) {
+    public VerificationRequestController(VerificationRequestServiceImpl service) {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<VerificationRequest> initiate(
-            @RequestBody VerificationRequest request) {
+    @PostMapping("/initiate")
+    public ResponseEntity<VerificationRequest> initiate(@RequestBody VerificationRequest request) {
         return ResponseEntity.ok(service.initiateVerification(request));
-    }
-
-    @PostMapping("/{id}/process")
-    public ResponseEntity<VerificationRequest> process(
-            @PathVariable Long id) {
-        return ResponseEntity.ok(service.processVerification(id));
     }
 }
