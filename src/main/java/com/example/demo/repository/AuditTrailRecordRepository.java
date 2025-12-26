@@ -17,5 +17,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AuditTrailRecordRepository extends JpaRepository<AuditTrailRecord, Long> {
-    List<AuditTrailRecordRepository> findByCredentialId(Long credentialId); // Required for t64 [cite: 178, 186]
+    // FIX: Must return List of Entities, not the Repository itself
+    List<AuditTrailRecord> findByCredentialId(Long credentialId); 
 }
