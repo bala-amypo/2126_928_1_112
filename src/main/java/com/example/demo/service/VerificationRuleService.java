@@ -13,6 +13,6 @@ import java.util.List;
 
 public interface VerificationRuleService {
     VerificationRule createRule(VerificationRule rule);
-    [cite_start]// [cite: 174] Required to fetch active rules in verification process
+    // Required for the verification logic
     List<VerificationRule> getActiveRules();
 }
