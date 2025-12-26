@@ -55,13 +55,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Data // This fixes "cannot find symbol: method getExpiryDate()" [cite: 157]
 public class CredentialRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long holderId;
     private String credentialCode;
     private String title;
@@ -69,15 +67,8 @@ public class CredentialRecord {
     private String credentialType;
     private String status;
     private LocalDate expiryDate;
-    
-    @Column(columnDefinition = "TEXT")
     private String metadataJson;
-
+    
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "credential_rules",
-        joinColumns = @JoinColumn(name = "credential_id"),
-        inverseJoinColumns = @JoinColumn(name = "rule_id")
-    )
     private Set<VerificationRule> rules = new HashSet<>();
 }

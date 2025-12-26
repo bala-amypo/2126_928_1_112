@@ -22,7 +22,7 @@
 package com.example.demo.dto;
 import lombok.Data;
 
-@Data
+@Data // Generates getFullName(), getEmail(), etc. [cite: 182]
 public class RegisterRequest {
     private String fullName;
     private String email;

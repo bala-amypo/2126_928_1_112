@@ -17,13 +17,14 @@
 //     public String getRole() { return role; }
 // }
 package com.example.demo.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor // Required for t49, t51 [cite: 181]
 public class JwtResponse {
     private String token;
 }
