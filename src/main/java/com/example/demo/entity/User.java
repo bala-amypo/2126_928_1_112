@@ -31,16 +31,11 @@
 // }
 
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
-import lombok.Data; // Ensure this is present
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Data; // <--- This import is required!
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data // <--- This tag creates the missing code!
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

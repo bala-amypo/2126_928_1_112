@@ -17,14 +17,11 @@
 //     public String getRole() { return role; }
 // }
 package com.example.demo.dto;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor // This specifically fixes the AuthController errors
+@AllArgsConstructor // <--- Adds the ability to pass the token in ()
 public class JwtResponse {
     private String token;
 }
