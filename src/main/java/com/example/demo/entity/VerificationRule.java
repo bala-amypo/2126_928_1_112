@@ -21,21 +21,21 @@
 //     public Boolean getActive() { return active; }
 //     public void setActive(Boolean active) { this.active = active; }
 // }
-package com.example.demo.entity;
+// package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+// import jakarta.persistence.*;
+// import lombok.*;
 
-@Entity
-@Data
-@NoArgsConstructor
-public class VerificationRule {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+// @Entity
+// @Data
+// @NoArgsConstructor
+// public class VerificationRule {
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    @Column(unique = true)
-    private String ruleCode;
+//     @Column(unique = true)
+//     private String ruleCode;
     
-    private Boolean active;
-}
+//     private Boolean active;
+// }
