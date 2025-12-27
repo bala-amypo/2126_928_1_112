@@ -39,3 +39,24 @@
     
 //     private Boolean active;
 // }
+
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Getter // Replaces @Data to avoid equals() collision on empty objects
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class VerificationRule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
+    private String ruleCode;
+    
+    private Boolean active;
+}
